@@ -1,22 +1,20 @@
-import React from "react";
-import { NavigationContainer } from "@react-navigation/native";
-import { createStackNavigator } from "@react-navigation/stack";
-import RegisterScreen from "./Screens/Register"; // ✅ Kiểm tra import này
-import LoginScreen from "./Screens/LoginScreens"; // ✅ Kiểm tra import này
-import HomeScreen from "./Screens/HomeScreen"; // ✅ Kiểm tra import này
+import { ToastProvider } from "react-native-toast-notifications";
+import AppNavigator from "./Screens/Navigation/AppNavigator"; // Đảm bảo đường dẫn chính xác
+import { CartProvider } from "./Screens/CartContext"; // Đảm bảo đường dẫn chính xác
 
-const Stack = createStackNavigator();
-
-const App = () => {
+export default function App() {
   return (
-    <NavigationContainer>
-      <Stack.Navigator initialRouteName="Login">
-        <Stack.Screen name="Register" component={RegisterScreen} />
-        <Stack.Screen name="Login" component={LoginScreen} />
-        <Stack.Screen name="Home" component={HomeScreen} options={{ headerShown: false }} />
-      </Stack.Navigator>
-    </NavigationContainer>
+    <ToastProvider
+      placement="top"
+      duration={3000}
+      animationType="slide-in"
+      successColor="green"
+      dangerColor="red"
+      warningColor="orange"
+    >
+      <CartProvider>
+        <AppNavigator />
+      </CartProvider>
+    </ToastProvider>
   );
-};
-
-export default App;
+}
